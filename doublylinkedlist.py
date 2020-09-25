@@ -16,6 +16,24 @@ class DoublyLL:
             p=p.next
         p.next=temp
         temp.prev=p
+    def count(self):
+        p=self.start
+        i=0
+        if self.start is None: print("Empty Linked List")
+        while p is not None:
+            p=p.next
+            i+=1
+        print(i)
+    def print(self): return print(self.__str__())
+    def __str__(self):
+        if self.start is None: return print("Empty Linked list")
+        p=self.start
+        llstr=""
+        while p is not None:
+            if llstr: llstr+="  <-->  "
+            llstr+=str(p.data)
+            p=p.next
+        return llstr
     def addafter(self,data,aftdata):
         p=self.start
         temp=Node(data)
@@ -35,12 +53,17 @@ class DoublyLL:
     def addbefore(self,data,befdata):
         p=self.start
         temp=Node(data)
-        while p.next is not None:
+        if p.data==befdata:
+            temp.next=self.start
+            self.start.prev=temp
+            self.start=temp
+        while p is not None:
             if p.next.data==befdata:
-                temp.next=p.prev
+                temp.next=p.next
                 temp.prev=p
                 p.next.prev=temp
-                p.prev.next=temp
+                p.next=temp
+                break
             p=p.next
     def reversal(self):
         p1=self.start
@@ -58,5 +81,13 @@ if __name__=='__main__':
     llist=DoublyLL()
     llist.append(1)
     llist.append(2)
-    #llist.addbefore(3,2)
+    llist.append(3)
+    llist.append(4)
+    llist.append(5)
+    llist.append(6)
+    llist.append(7)
+    llist.addbefore(3,2)
+    llist.addafter(7,4)
     llist.reversal()
+    llist.print()
+    llist.count()
